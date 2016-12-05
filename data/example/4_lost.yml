@@ -2,4 +2,5 @@
 title: "Lost in Translation"
 text_left: "Many Syrian refugees arrive with scant knowledge of English. Medical examinations may be delayed because of a shortage of Arabic translators and doctors who speak Arabic."
 text_right: "But the repercussions from the language gap can extend to when refugees search for jobs and attempt to navigate an unfamiliar landscape. <br>
+<span>{{name}}</span>, your age is <span>{{age}}</span>.<br>
 Go to <a href=\"./1_living.html\">Title</a>"
