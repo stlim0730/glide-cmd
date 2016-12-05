@@ -1,0 +1,12 @@
+{
+  "debuggingMode": true,
+  "templateSettings": {
+    "path": "templates"
+  },
+  "userdataSettings": {
+    "path": "data"
+  },
+  "outputSettings": {
+    "path": "outputs"
+  }
+}
