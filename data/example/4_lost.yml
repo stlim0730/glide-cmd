@@ -4,3 +4,4 @@ text_left: "Many Syrian refugees arrive with scant knowledge of English. Medical
 text_right: "But the repercussions from the language gap can extend to when refugees search for jobs and attempt to navigate an unfamiliar landscape. <br>
 <span>{{name}}</span>, your age is <span>{{age}}</span>.<br>
 Go to <a href=\"./1_living.html\">Title</a>"
+next: "1_living"

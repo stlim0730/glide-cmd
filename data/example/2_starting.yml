@@ -13,3 +13,4 @@ Age: <select data-glide-name='age' class='glide-dynamic-forms'>
   <option value='40-50'>40 - 50</option>
   <option value='50-60'>50 - 60</option>
 </select>"
+next: "=glidePersData.age<=\"30\"?\"3_health\":\"1_living\""

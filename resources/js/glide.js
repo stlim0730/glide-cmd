@@ -24,6 +24,10 @@ $(document).ready(function () {
   $('.glide-dynamic-forms').change(function(event){ updateglidePersData($(this)); });
   $('.glide-dynamic-forms').keyup(function(event) { updateglidePersData($(this)); });
 
+  
+  // 
+  // Renders HTML with Glide data
+  // 
   var renderGlideTemplate = function() {
     // TODO: enhance performance?
     // var bodyText = $('body').text();
@@ -68,8 +72,15 @@ $(document).ready(function () {
 
     event.stopPropagation();
 
-    var nextPageName = $(this).data('next-page');
-    if(nextPageName!=='')
+    var nextPageName = $(this).data('glide-next');
+    if(typeof nextPageName === 'undefined') {
+      // Skip
+    }
+    else if(nextPageName.startsWith('=')) {
+      nextPageName = nextPageName.substring(1).trim();
+      location.href = './' + eval(nextPageName) + '.html';
+    }
+    else if(nextPageName!=='')
       location.href = './' + nextPageName + '.html';
   });
 

@@ -141,44 +141,45 @@ glideJsDstPath = str(projectPath / 'glide.js')
 shutil.copyfile(glideJsSrcPath, glideJsDstPath)
 
 
+# # # # # # # # # # # # # # # # # 
+#  Not using Glidefile for now; # 
+# # # # # # # # # # # # # # # # # 
+
+
 # 
 # Make the sequence in this project's Glidefile or append the new page
 # 
-if not glideFile.exists():
-  # It's the first page of the project. Make a new Glidefile.
-  with open(str(glideFile), 'w') as outputF:
-    outputF.write(pageName + '\n')
-    outputF.close()
-else:
-  # Glidefile exists. Append the new page.
-  with open(str(glideFile), 'a') as outputF:
-    outputF.write(pageName + '\n')
-    outputF.close()
-
-# 
-# Connect sequential pages (click to next)
-# 
-pages = None
-with open(str(glideFile), 'r') as inputF: # existence guaranteed
-  pages = inputF.read().split('\n')
-for index, page in enumerate(pages):
-  if index == len(pages) - 1:
-    break
-  htmlContent = ''
-  htmlParser = None
-  # Update the output files
-  with open(str(projectPath / '{}.html'.format(page)), 'r') as inputF:
-    htmlContent = inputF.read()
-    htmlParser = BeautifulSoup(htmlContent, 'html5lib')
-    tags = htmlParser.select('.click-to-next')
-    for tag in tags:
-      tag['data-next-page'] = pages[index + 1]
-  with open(str(projectPath / '{}.html'.format(page)), 'w') as outputF:
-    outputF.write(htmlParser.prettify(formatter='html'))
-    outputF.close()
-    logger.info('Updated Glidefile')
+# if not glideFile.exists():
+#   # It's the first page of the project. Make a new Glidefile.
+#   with open(str(glideFile), 'w') as outputF:
+#     outputF.write(pageName + '\n')
+#     outputF.close()
+# else:
+#   # Glidefile exists. Append the new page.
+#   with open(str(glideFile), 'a') as outputF:
+#     outputF.write(pageName + '\n')
+#     outputF.close()
 
 
 # 
+# Connect sequential pages using Glidefile (click to next)
 # 
-# 
+# pages = None
+# with open(str(glideFile), 'r') as inputF: # existence guaranteed
+#   pages = inputF.read().split('\n')
+# for index, page in enumerate(pages):
+#   if index == len(pages) - 1:
+#     break
+#   htmlContent = ''
+#   htmlParser = None
+#   # Update the output files
+#   with open(str(projectPath / '{}.html'.format(page)), 'r') as inputF:
+#     htmlContent = inputF.read()
+#     htmlParser = BeautifulSoup(htmlContent, 'html5lib')
+#     tags = htmlParser.select('.click-to-next')
+#     for tag in tags:
+#       tag['data-next-page'] = pages[index + 1]
+#   with open(str(projectPath / '{}.html'.format(page)), 'w') as outputF:
+#     outputF.write(htmlParser.prettify(formatter='html'))
+#     outputF.close()
+#     logger.info('Updated Glidefile')
