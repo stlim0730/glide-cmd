@@ -1,10 +1,13 @@
 {
-  "debuggingMode": true,
+  "debuggingMode": false,
   "templateSettings": {
     "path": "templates"
   },
   "userdataSettings": {
     "path": "data"
+  },
+  "jekyllWorkspaceSettings": {
+    "path": "jekyll-workspace"
   },
   "outputSettings": {
     "path": "outputs"
