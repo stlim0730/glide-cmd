@@ -2,37 +2,36 @@
 
 """Glide
 
-Usage:  
-  glide.py newproject <project_name>
-  glide.py chooseproject <project_name>
-  glide.py newpage <page_name>
+Usage:
+  glide.py show-projects
+  glide.py create-project <project_name>
+  glide.py select-project <project_name>
+  glide.py show-pages
+  glide.py create-page <page_name>
+  glide.py build
+  glide.py test
+  glide.py launch
   glide.py (-h | --help)
   glide.py --version
 
 Options:
-  -h --help     Show this screen.
-  --version     Show version.
+  -h --help     Shows this screen.
+  --version     Shows version.
 
 """
 
-# For later use:
-# Project bolierplate - cookiecutter-django:
-# https://github.com/pydanny/cookiecutter-django
-
-# For later use:
-# Interactive commandline tool - Click
-# http://click.pocoo.org/5/
-
 import os
 import sys
-import pathlib
 import shutil
 import logging
 from docopt import docopt
+import pathlib
 import simplejson as json
 import yaml
 from jinja2 import Template
 from bs4 import BeautifulSoup
+
+from projectmanager import ProjectManager
 
 
 # 
@@ -40,10 +39,10 @@ from bs4 import BeautifulSoup
 # 
 config = None
 logger = None
-projectName = ''
-pageName = ''
-themeName = ''
-layoutName = ''
+# projectName = ''
+# pageName = ''
+# themeName = ''
+# layoutName = ''
 
 
 # 
@@ -60,7 +59,7 @@ try:
   with open('config/config.json', 'r') as configFile:
     config = json.load(configFile)
 except FileNotFoundError:
-  logger.info('Cannot find the config file.')
+  logger.error('Cannot find the config file.')
   sys.exit(1)
 
 
@@ -69,43 +68,57 @@ except FileNotFoundError:
 # 
 if config['debuggingMode']:
   loggingLevel = logging.DEBUG
-  logFormat = '[%(asctime)s] %(levelname)s : %(message)s'
+  # logFormat = '[%(asctime)s] %(levelname)s : %(message)s'
 else:
   loggingLevel = logging.INFO
-  logFormat = '%(message)s'
+logFormat = '%(message)s'
 logging.basicConfig(level=loggingLevel, format=logFormat)
 logger = logging.getLogger()
 
 
 # 
+# Setup configurations
+# 
+rootPath = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
+templateRootPath = rootPath / config['templateSettings']['path']
+dataRootPath = rootPath / config['userdataSettings']['path']
+outputRootPath = rootPath / config['outputSettings']['path']
+
+
+# 
 # Handle commands
 # 
+print()
 args = docopt(__doc__, version='Glide v0.1')
 
-if args['newproject']:
-  logger.info(args['<project_name>'])
+if args['show-projects']:
+  ProjectManager.showProjects(dataRootPath)
 
-elif args['chooseproject']:
-  logger.info(args['<project_name>'])
+elif args['create-project']:
+  ProjectManager.createProject(dataRootPath, outputRootPath, args['<project_name>'])
 
-elif args['newpage']:
-  logger.info(args['<page_name>'])
+elif args['select-project']:
+  ProjectManager.selectProject(dataRootPath, outputRootPath, args['<project_name>'])
+
+elif args['show-pages']:
+  print('showpages')
+
+elif args['create-page']:
+  print(args['<page_name>'])
+
+elif args['build']:
+  print('build')
+
+elif args['test']:
+  print('test')
+
+elif args['launch']:
+  print('launch')
 
 else:
-  pass
-
-
-# # 
-# # Setup configurations
-# # 
-# glideRootPath = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
-# templateRootPath = pathlib.Path(glideRootPath / config['templateSettings']['path'])
-# dataPath = glideRootPath / config['userdataSettings']['path']
-# outputPath = glideRootPath / config['outputSettings']['path']
-# projectPath = outputPath / projectName
-# glideFile = projectPath / '{}.glide'.format(projectName)
-# logger.info('Looking for tempaltes in %s', templateRootPath)
-# logger.info('Looking for user data in %s', dataPath)
+  logger.error('Command unidentified')
+  sys.exit(1)
+print()
 
 
 # # 

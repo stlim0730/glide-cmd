@@ -1,15 +1,19 @@
 {
-  "debuggingMode": false,
+  "debuggingMode": true,
+  "configSettings": {
+    "path": "config",
+    "projectFile": "project.json"
+  },
   "templateSettings": {
     "path": "templates"
   },
   "userdataSettings": {
     "path": "data"
   },
-  "jekyllWorkspaceSettings": {
-    "path": "jekyll-workspace"
-  },
   "outputSettings": {
     "path": "outputs"
+  },
+  "jekyllWorkspaceSettings": {
+    "path": "jekyll-workspace"
   }
 }
