@@ -58,19 +58,24 @@ class ProjectManager():
 
   @staticmethod
   def showProjects(projectRoot):
-    rootDir = str(projectRoot)
-    dirs = [d for d in listdir(rootDir) if not isfile(join(rootDir, d))]
+    currentProject = ProjectManager.getCurrentProject()
+    pRootDir = str(projectRoot)
+    dirs = [d for d in listdir(pRootDir) if not isfile(join(pRootDir, d))]
     for d in dirs:
-      print('  %s' % d)
+      if d == currentProject:
+        print('* %s' % d)
+      else:
+        print('  %s' % d)
+    print()
     if len(dirs) == 0:
       print('No project exists.')
-      print('Use create-project command to create a new Glide project.')
+      print('Use create-project command to create a new project.')
     elif len(dirs) == 1:
       print('%d project exists.' % len(dirs))
-      print('Use select-project command to select an existing Glide project to work on.')
+      print('Use select-project command to select a project to work on.')
     else:
       print('%d projects exist.' % len(dirs))
-      print('Use select-project command to select an existing Glide project to work on.')
+      print('Use select-project command to select a project to work on.')
 
 
   @staticmethod
@@ -81,7 +86,7 @@ class ProjectManager():
     if dExists:
       # The project path exists. Failed to create a project.
       print('Couldn\'t create a new project as a project with the same name exists.')
-      print('Use show-projects command to see existing Glide projects on this computer.')
+      print('Use show-projects command to see existing projects.')
     else:
       # They don't exist. Safely create a new project.
       ProjectManager._mkdir(dRootDir, projectName)
@@ -89,7 +94,7 @@ class ProjectManager():
       oExists = ProjectManager._exists(oRootDir, projectName)
       if not oExists:
         ProjectManager._mkdir(oRootDir, projectName)
-      print('Your Glide project \'%s\' has been created.' % projectName)
+      print('Your project \'%s\' has been created.' % projectName)
       ProjectManager.selectProject(dataRoot, outputRoot, projectName)
 
 
@@ -107,4 +112,30 @@ class ProjectManager():
     else:
       # Something's wrong.
       print('Couldn\'t select the project you specified.')
-      print('Use show-projects command to see existing Glide projects on this computer.')
+      print('Use show-projects command to see existing projects.')
+
+
+  @staticmethod
+  def showPages(dataRoot):
+    # Make sure the required paths exists
+    dRootDir = str(dataRoot)
+    currentProject = ProjectManager.getCurrentProject()
+    dExists = ProjectManager._exists(dRootDir, currentProject)
+    if dExists:
+      # Show existing data files
+      files = [f for f in listdir(join(dRootDir, currentProject)) if f.endswith('.glide')]
+      for f in files:
+        print('  %s' % f)
+      print()
+      if len(files) == 0:
+        print('Project \'%s\' doens\'t have a page.' % currentProject)
+      elif len(files) == 1:
+        print('Project \'%s\' has %d page.' % (currentProject, len(files)))
+      else:
+        print('Project \'%s\' has %d pages.' % (currentProject, len(files)))
+      print('Use create-page command to create a new page.')
+    else:
+      print('Couldn\'t find pages in the current project.')
+      print('Use show-projects command to see existing projects.')
+      print('Use select-project command to select a project to work on.')
+

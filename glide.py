@@ -101,7 +101,7 @@ elif args['select-project']:
   ProjectManager.selectProject(dataRootPath, outputRootPath, args['<project_name>'])
 
 elif args['show-pages']:
-  print('showpages')
+  ProjectManager.showPages(dataRootPath)
 
 elif args['create-page']:
   print(args['<page_name>'])
