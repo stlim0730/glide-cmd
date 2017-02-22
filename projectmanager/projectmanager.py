@@ -85,10 +85,10 @@ class ProjectManager():
     dExists = ProjectManager._exists(dRootDir, projectName)
     if dExists:
       # The project path exists. Failed to create a project.
-      print('Couldn\'t create a new project as a project with the same name exists.')
+      print('Couldn\'t create a new project as a project with the same name already exists.')
       print('Use show-projects command to see existing projects.')
     else:
-      # They don't exist. Safely create a new project.
+      # It doesn't exist. Safely create a new project.
       ProjectManager._mkdir(dRootDir, projectName)
       # TODO: clear the output path?
       oExists = ProjectManager._exists(oRootDir, projectName)
@@ -116,6 +116,16 @@ class ProjectManager():
 
 
   @staticmethod
+  def showThemes():
+    pass
+
+
+  @staticmethod
+  def showLayouts(themeName):
+    pass
+
+
+  @staticmethod
   def showPages(dataRoot):
     # Make sure the required paths exists
     dRootDir = str(dataRoot)
@@ -138,4 +148,33 @@ class ProjectManager():
       print('Couldn\'t find pages in the current project.')
       print('Use show-projects command to see existing projects.')
       print('Use select-project command to select a project to work on.')
+
+
+  @staticmethod
+  def createPage(dataRoot, pageName, themeName, layoutName):
+    dRootDir = str(dataRoot)
+    dExists = ProjectManager._exists(dRootDir, pageName)
+    if dExists:
+      # The project path exists. Failed to create a project.
+      print('Couldn\'t create a new page as a page with the same name already exists.')
+      print('Use show-pages command to see existing pages.')
+    else:
+      # It doesn't exist. Safely create a new page.
+      # TODO: Create a data template from the theme and layout specified
+      pass
+
+
+  @staticmethod
+  def build():
+    pass
+
+
+  @staticmethod
+  def test():
+    pass
+
+
+  @staticmethod
+  def launch():
+    pass
 

@@ -6,8 +6,10 @@ Usage:
   glide.py show-projects
   glide.py create-project <project_name>
   glide.py select-project <project_name>
+  glide.py show-themes
+  glide.py show-layouts <theme_name>
   glide.py show-pages
-  glide.py create-page <page_name>
+  glide.py create-page <page_name> <theme_name> <layout_name>
   glide.py build
   glide.py test
   glide.py launch
@@ -100,20 +102,26 @@ elif args['create-project']:
 elif args['select-project']:
   ProjectManager.selectProject(dataRootPath, outputRootPath, args['<project_name>'])
 
+elif args['show-themes']:
+  ProjectManager.showThemes()
+
+elif args['show-layouts']:
+  ProjectManager.showLayouts(args['<theme_name>'])
+
 elif args['show-pages']:
   ProjectManager.showPages(dataRootPath)
 
 elif args['create-page']:
-  print(args['<page_name>'])
+  ProjectManager.createPage(dataRootPath, args['<page_name>'], args['<theme_name>'], args['<layout_name>'])
 
 elif args['build']:
-  print('build')
+  ProjectManager.build()
 
 elif args['test']:
-  print('test')
+  ProjectManager.test()
 
 elif args['launch']:
-  print('launch')
+  ProjectManager.launch()
 
 else:
   logger.error('Command unidentified')
