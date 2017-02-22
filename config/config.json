@@ -1,5 +1,9 @@
 {
   "debuggingMode": true,
+  "configSettings": {
+    "path": "config",
+    "projectFile": "project.json"
+  },
   "templateSettings": {
     "path": "templates"
   },
@@ -8,5 +12,8 @@
   },
   "outputSettings": {
     "path": "outputs"
+  },
+  "jekyllWorkspaceSettings": {
+    "path": "jekyll-workspace"
   }
 }

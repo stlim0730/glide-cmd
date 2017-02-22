@@ -6,3 +6,5 @@ PyYAML==3.12
 simplejson==3.10.0
 six==1.10.0
 webencodings==0.5
+docopt
+pathlib
